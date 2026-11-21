@@ -168,14 +168,12 @@
   .res-title{font-size:clamp(34px, min(10vh, 6.4vw), 72px); margin:0; line-height:1.1;}
   .res-sub{font-size:clamp(16px, 3vh, 24px); color:var(--ink-soft); margin:0; word-break:keep-all;}
   .stars{display:flex; flex-wrap:wrap; gap:6px; max-width:520px;}
-  .wrongs{font-size:clamp(14px, 2.4vh, 18px); color:var(--ink-soft); display:flex; flex-wrap:wrap; gap:6px; align-items:center;}
-  .wrongs .wchip{background:#fff; border-radius:var(--r-full); padding:4px 12px;}
   .res-btns{display:flex; gap:12px; flex-wrap:wrap; margin-top:clamp(0px, 1.2vh, 12px);}
   @media (orientation:portrait){
     #result.on{flex-direction:column; justify-content:safe center;}
     .res-art{height:min(40vh, 420px); max-width:80vw;}
     .res-info{align-items:center; text-align:center;}
-    .stars,.wrongs,.res-btns{justify-content:center;}
+    .stars,.res-btns{justify-content:center;}
   }
 
 
@@ -318,7 +316,6 @@
       <p class="res-title" id="resTitle">만점이에요!</p>
       <p class="res-sub" id="resSub"></p>
       <div class="stars" id="resStars"></div>
-      <div class="wrongs" id="wrongs"></div>
       <div class="res-btns">
         <button class="ghost btn3d" id="toHomeBtn">처음으로</button>
         <button class="start btn3d" id="againBtn"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="#FFFFFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12a8 8 0 1 0 2.6-5.9"/><path d="M4 4.5V9h4.5"/></svg>한 번 더!</button>
@@ -335,7 +332,7 @@
   const TABS = [
     {id:'p1', label:'+1', fixed:1}, {id:'p2', label:'+2', fixed:2}, {id:'p3', label:'+3', fixed:3},
     {id:'p4', label:'+4', fixed:4}, {id:'p5', label:'+5', fixed:5},
-    {id:'r5', label:'1~5', max:5}, {id:'r9', label:'1~9', max:9}
+    {id:'r5', label:'0~5', max:5}, {id:'r9', label:'0~9', max:9}
   ];
 
   const store = {
@@ -701,7 +698,6 @@
     $('resSub').textContent = pct === 1 ? total + '문제를 모두 한 번에 맞혔어요' : total + '문제 중 ' + score + '문제를 한 번에 맞혔어요';
     $('resStars').innerHTML = Array.from({length: total}, (_, i) => starSvg(i < score)).join('');
     $('resStars').setAttribute('aria-label', '별 ' + total + '개 중 ' + score + '개');
-    $('wrongs').innerHTML = wrongs.length ? '<span>다시 볼 문제</span>' + wrongs.map(w => '<span class="wchip">' + w + '</span>').join('') : '';
     const d = new Date();
     store.set('chae-add-record', (d.getMonth() + 1) + '/' + d.getDate() + ' · ' + tabName(tab) + ' / ' + total + '문제 중 ' + score + '개');
     beep([523, 659, 784, 1046]);
