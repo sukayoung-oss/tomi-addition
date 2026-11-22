@@ -114,6 +114,18 @@
   #home .preview{margin-top:calc(var(--hh) - var(--tuck) + clamp(10px, 2.2vh, 22px)); margin-bottom:6px;}
   @media (max-height:500px){ #home .preview{margin-top:0;} }
   @media (orientation:portrait){ #home .preview{margin-top:0; margin-bottom:0;} #home{--hh:clamp(60px, 15vw, 96px);} }
+  /* 가로: 왼쪽이 화면보다 길어지면 홈 전체가 스크롤되고, 미리 보기 아래선은 늘 문제 수 판 아래선에 맞춤 */
+  @media (orientation:landscape){
+    #home{flex-wrap:wrap; align-content:stretch; overflow-y:auto;}
+    .pick{overflow:visible; padding-bottom:6px;}
+    #home .preview{margin-bottom:6px;}
+  }
+  /* 세로: 시작하기 버튼을 화면 아래에 띄워 둠 */
+  @media (orientation:portrait){
+    #home{padding-bottom:calc(clamp(60px, 9vw, 96px) + 36px + env(safe-area-inset-bottom));}
+    #home .start{position:fixed; z-index:20; left:max(16px, env(safe-area-inset-left)); right:max(16px, env(safe-area-inset-right)); bottom:calc(14px + env(safe-area-inset-bottom)); width:auto; box-shadow:0 5px 0 var(--purple-deep), 0 10px 24px rgba(60,40,110,.28);}
+    #home .start:active{box-shadow:0 1px 0 var(--purple-deep), 0 6px 16px rgba(60,40,110,.24);}
+  }
 
   /* ---------- 문제 화면 ---------- */
   #play{gap:clamp(6px, 1.6vmin, 12px);}
